@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1533195059" />
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
+</head>
+<body>
+  <div id="map" style="width: 100%; height: 400px; background: grey" />
+  <script  type="text/javascript" charset="UTF-8" >
+    
+/**
+ * Moves the map to display over Berlin
+ *
+ * @param  {H.Map} map      A HERE Map instance within the application
+ * 
+ */
+ let infoWindow;
+         let resultados;
+   
+
+    if (navigator.geolocation) {
+var pos;
+navigator.geolocation.getCurrentPosition(function(position) {
+    console.log(position)
+   pos = {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+  };
+  fetch(`https://places.demo.api.here.com/places/v1/discover/explore?at=${pos.lat}%2C${pos.lng}&cat=restaurant&app_id=DemoAppId01082013GAL&app_code=AJKnXv84fjrb0KIHawS0Tg`).then(res => res.json()).then(result =>filtrarRestaurant(result))
+  function filtrarRestaurant(food){
+console.log(food)
+
+// fetch(`https://places.demo.api.here.com/places/v1/places/152jx7ps-df310e72f15c0f63b3a306061d757d65/media/images?app_id=DemoAppId01082013GAL&app_code=AJKnXv84fjrb0KIHawS0Tg`).then(res => res.json()).then(result => console.log(result)).catch(err => console.log(err))
+ let  imagenes = food.results.items.forEach(e => {
+    // let link = e.category.href;
+    // fetch(link).then(res => res.json()).then(result =>console.log(result));
+    let fo = e.href;
+  return fetch(fo).then(res => res.json()).then(result => je(result))
+});
+
+
+
+}
+let reusltado = new Array();
+function je(imagenes) {
+  reusltado.push(imagenes);
+    // console.log(imagenes)
+    
+
+}
+console.log(reusltado)
+// function addMarkerToGroup(group, coordinate, html) {
+//   var marker = new H.map.Marker(coordinate);
+//   // add custom data to the marker
+//   marker.setData(html);
+//   group.addObject(marker);
+// }
+
+// /**
+//  * Add two markers showing the position of Liverpool and Manchester City football clubs.
+//  * Clicking on a marker opens an infobubble which holds HTML content related to the marker.
+//  * @param  {H.Map} map      A HERE Map instance within the application
+//  */
+// function addInfoBubble(map) {
+//   var group = new H.map.Group();
+
+//   map.addObject(group);
+
+//   // add 'tap' event listener, that opens info bubble, to the group
+//   group.addEventListener('tap', function (evt) {
+//     // event target is the marker itself, group is a parent event target
+//     // for all objects that it contains
+  
+//     var bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
+//       // read custom data
+//       content: evt.target.getData()
+     
+      
+//     });
+    
+//     // show info bubble
+//     ui.addBubble(bubble);
+//   }, false);
+// reusltado.forEach(element => {
+//   let posicion = element.location.position
+//   addMarkerToGroup(group, {lat:posicion[0], lng:posicion[1]},
+//     '<div><a href=\'http://www.mcfc.co.uk\' >Manchester City</a>' +
+//     '</div><div >City of Manchester Stadium<br>Capacity: 48,000</div>');
+
+// });
+ 
+//   // addMarkerToGroup(group, {lat:53.430, lng:-2.961},
+//   //   '<div ><a href=\'http://www.liverpoolfc.tv\' >Liverpool</a>' +
+//   //   '</div><div >Anfield<br>Capacity: 45,362</div>');
+
+// }
+ 
+  function moveMapToBerlin(map){
+    console.log(map)
+  map.setCenter({lat:pos.lat, lng: pos.lng});
+  map.setZoom(16);
+
+  var marcador;
+  var parisMarker = new H.map.Marker({lat:pos.lat, lng:pos.lng});
+  reusltado.forEach(element => {
+  let posicion = element.location.position
+ 
+   marcador = new H.map.Marker({lat:posicion[0], lng:posicion[1]});
+});
+  map.addObject(parisMarker);
+map.addObject(marcador);
+}
+var platform = new H.service.Platform({
+  app_id: 'devportal-demo-20180625',
+  app_code: '9v2BkviRwi9Ot26kp2IysQ',
+  useHTTPS: true
+});
+var pixelRatio = window.devicePixelRatio || 1;
+var defaultLayers = platform.createDefaultLayers({
+  tileSize: pixelRatio === 1 ? 256 : 512,
+  ppi: pixelRatio === 1 ? undefined : 320
+});
+
+//Step 2: initialize a map  - not specificing a location will give a whole world view.
+var map = new H.Map(document.getElementById('map'),
+  defaultLayers.normal.map, {pixelRatio: pixelRatio});
+
+//Step 3: make the map interactive
+// MapEvents enables the event system
+// Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+// Create the default UI components
+var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+// Now use the map as required...
+moveMapToBerlin(map);
+// addInfoBubble(map)
+})
+
+}
+
+
+
+
+
+
+/**
+ * Boilerplate map initialization code starts below:
+ */
+
+//Step 1: initialize communication with the platform
+
+  </script>
+</body>
+</html>
+
+<!-- <html>
+  <head>
+  <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+  <script src="http://js.api.here.com/v3/3.0/mapsjs-core.js"
+  type="text/javascript" charset="utf-8"></script>
+  <script src="http://js.api.here.com/v3/3.0/mapsjs-service.js"
+  type="text/javascript" charset="utf-8"></script>
+  </head>
+  <body>
+  <div style="width: 640px; height: 480px" id="mapContainer"></div>
+  <script>
+    // Initialize the platform object:
+    
+         let infoWindow;
+         let resultados;
+   
+
+    if (navigator.geolocation) {
+var pos;
+navigator.geolocation.getCurrentPosition(function(position) {
+    console.log(position)
+   pos = {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+  };
+  var platform = new H.service.Platform({
+    'app_id': 'MRGXfX7t02TxO2r5jHPj',
+    'app_code': 'RYHVIuoV3J093p8AVNKM6Q '
+    });
+  var maptypes = platform.createDefaultLayers();
+
+// Instantiate (and display) a map object:
+var map = new H.Map(
+document.getElementById('mapContainer'),
+maptypes.normal.map,
+{
+  
+  center: pos,
+  zoom: 10
+});
+})
+
+} -->
+
+    <!-- // Obtain the default map types from the platform object
+   
+  </script>
+  </body>
+</html> -->
