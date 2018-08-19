@@ -26,10 +26,11 @@ if (navigator.geolocation) {
 
 
     }
-    // let reusltado = new Array();
+    window.reusltado = new Array();
 
     window.data = (imagenes)=> {
       // var marker = new H.map.Marker(coordinate);
+      reusltado.push(imagenes)
       console.log(imagenes);
       var marker = new H.map.Marker({ lat: imagenes.location.access[0].position[0], lng: imagenes.location.access[0].position[1] });
       // add custom data to the marker
@@ -60,6 +61,8 @@ if (navigator.geolocation) {
       group.addObject(marker);
       map.addObject(group);
     window.mostrarRestaurantes(imagenes)
+    // window.filtrar(imagenes);
+    datosRes(imagenes)
 
     }
     // console.log(reusltado)
@@ -102,6 +105,7 @@ if (navigator.geolocation) {
 
     // Now use the map as required...
     moveMapToBerlin(map);
+    
     // addInfoBubble(map)
   })
 
