@@ -3,13 +3,44 @@
   <head>
     <meta charset="utf-8">
     <title>food map</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1533195059" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-      <div id="map"></div>
+      <nav>
+          <div class="nav-wrapper ">
+            <a href="#" class="brand-logo center">Food Map</a>
+          </div>
+        </nav>
+        <section class="container ">
+          <div class="row ">
+            <div class="col s12 col m12 col l12 center-align">
+              <h5>Restaurantes cerca de ti...</h5>
+              <div id="map" style="width: 100%; height: 400px; background: grey" />
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="row">
+            <h4>Filtra los restaurantes cerca de ti</h4>
+            <div class="col s12 col m12 col l12" id="places">
+
+            </div>
+          </div>
+         
+          
+        </section>
+        
+        
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-   
-    <script src="main.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+      <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+      <script src="main.js"></script>
     <script src="data.js"></script>
+    <script src="view.js"></script>
   </body>
 </html>

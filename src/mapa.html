@@ -40,80 +40,79 @@ console.log(food)
     // let link = e.category.href;
     // fetch(link).then(res => res.json()).then(result =>console.log(result));
     let fo = e.href;
-  return fetch(fo).then(res => res.json()).then(result => je(result))
+  return fetch(fo).then(res => res.json()).then(result => data(result))
 });
 
 
 
-}
+} 
 let reusltado = new Array();
-function je(imagenes) {
-  reusltado.push(imagenes);
-    // console.log(imagenes)
+
+function data(imagenes) {
+  // var marker = new H.map.Marker(coordinate);
+  console.log(imagenes);
+  var marker = new H.map.Marker({lat:imagenes.location.access[0].position[0], lng:imagenes.location.access[0].position[1]});
+  // add custom data to the marker
+  var html = `<div> <h4>${imagenes.name}</h4></div>
+  <div >Direccion: ${imagenes.location.address.street}, ${imagenes.location.address.district}</div>`;
+  marker.setData(html);
+  
+  var group = new H.map.Group();
+
+
+
+// add 'tap' event listener, that opens info bubble, to the group
+group.addEventListener('tap', function (evt) {
+  // event target is the marker itself, group is a parent event target
+  // for all obdatacts that it contains
+  // var datos =  evt.getData();
+  // console.log(datos)
+  var bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
+    // read custom data
+    content: evt.target.getData()
+   
     
+  });
+  
+  // show info bubble
+  ui.addBubble(bubble);
+}, false);
+
+// addMarkerToGroup(group, {lat:53.439, lng:-2.221},
+//   ;
+
+// addMarkerToGroup(group, {lat:53.430, lng:-2.961},
+//   '<div ><a href=\'http://www.liverpoolfc.tv\' >Liverpool</a>' +
+//   '</div><div >Anfield<br>Capacity: 45,362</div>');
+    // console.log(imagenes.location.access[0].position[0]);
+  
+  //  map.addObject(marcador);
+//     imagenes.forEach(element => {
+//     console.log(element.location);
+//   let posicion = element.location.access[0].position;
+//   
+// console.log(marcador)
+group.addObject(marker);
+map.addObject(group);
+// map.addObject(marcador)
+  
+// });
 
 }
-console.log(reusltado)
-// function addMarkerToGroup(group, coordinate, html) {
-//   var marker = new H.map.Marker(coordinate);
-//   // add custom data to the marker
-//   marker.setData(html);
-//   group.addObject(marker);
-// }
+// console.log(reusltado)
 
-// /**
-//  * Add two markers showing the position of Liverpool and Manchester City football clubs.
-//  * Clicking on a marker opens an infobubble which holds HTML content related to the marker.
-//  * @param  {H.Map} map      A HERE Map instance within the application
-//  */
-// function addInfoBubble(map) {
-//   var group = new H.map.Group();
 
-//   map.addObject(group);
-
-//   // add 'tap' event listener, that opens info bubble, to the group
-//   group.addEventListener('tap', function (evt) {
-//     // event target is the marker itself, group is a parent event target
-//     // for all objects that it contains
-  
-//     var bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
-//       // read custom data
-//       content: evt.target.getData()
-     
-      
-//     });
-    
-//     // show info bubble
-//     ui.addBubble(bubble);
-//   }, false);
-// reusltado.forEach(element => {
-//   let posicion = element.location.position
-//   addMarkerToGroup(group, {lat:posicion[0], lng:posicion[1]},
-//     '<div><a href=\'http://www.mcfc.co.uk\' >Manchester City</a>' +
-//     '</div><div >City of Manchester Stadium<br>Capacity: 48,000</div>');
-
-// });
- 
-//   // addMarkerToGroup(group, {lat:53.430, lng:-2.961},
-//   //   '<div ><a href=\'http://www.liverpoolfc.tv\' >Liverpool</a>' +
-//   //   '</div><div >Anfield<br>Capacity: 45,362</div>');
-
-// }
- 
   function moveMapToBerlin(map){
     console.log(map)
   map.setCenter({lat:pos.lat, lng: pos.lng});
-  map.setZoom(16);
+  map.setZoom(14);
 
-  var marcador;
-  var parisMarker = new H.map.Marker({lat:pos.lat, lng:pos.lng});
-  reusltado.forEach(element => {
-  let posicion = element.location.position
  
-   marcador = new H.map.Marker({lat:posicion[0], lng:posicion[1]});
-});
+  var parisMarker = new H.map.Marker({lat:pos.lat, lng:pos.lng});
+  console.log(parisMarker)
+ 
   map.addObject(parisMarker);
-map.addObject(marcador);
+
 }
 var platform = new H.service.Platform({
   app_id: 'devportal-demo-20180625',
@@ -150,62 +149,6 @@ moveMapToBerlin(map);
 
 
 
-/**
- * Boilerplate map initialization code starts below:
- */
-
-//Step 1: initialize communication with the platform
-
   </script>
 </body>
 </html>
-
-<!-- <html>
-  <head>
-  <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-  <script src="http://js.api.here.com/v3/3.0/mapsjs-core.js"
-  type="text/javascript" charset="utf-8"></script>
-  <script src="http://js.api.here.com/v3/3.0/mapsjs-service.js"
-  type="text/javascript" charset="utf-8"></script>
-  </head>
-  <body>
-  <div style="width: 640px; height: 480px" id="mapContainer"></div>
-  <script>
-    // Initialize the platform object:
-    
-         let infoWindow;
-         let resultados;
-   
-
-    if (navigator.geolocation) {
-var pos;
-navigator.geolocation.getCurrentPosition(function(position) {
-    console.log(position)
-   pos = {
-    lat: position.coords.latitude,
-    lng: position.coords.longitude
-  };
-  var platform = new H.service.Platform({
-    'app_id': 'MRGXfX7t02TxO2r5jHPj',
-    'app_code': 'RYHVIuoV3J093p8AVNKM6Q '
-    });
-  var maptypes = platform.createDefaultLayers();
-
-// Instantiate (and display) a map object:
-var map = new H.Map(
-document.getElementById('mapContainer'),
-maptypes.normal.map,
-{
-  
-  center: pos,
-  zoom: 10
-});
-})
-
-} -->
-
-    <!-- // Obtain the default map types from the platform object
-   
-  </script>
-  </body>
-</html> -->
