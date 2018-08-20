@@ -5,6 +5,7 @@
     <title>food map</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1533195059" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -21,19 +22,22 @@
             </div>
           </div>
         </section>
-        <div class="input-field col s12 col m12 col l12">
-            <select id="select">
-              <option value="">Elige una opcion</option>
-              <option value="peruvian">Peruana</option>
-              <option value="chilean">Chilena</option>
-              <option value="Otros"> Otros</option>
-            </select>
-            <button class="btn" onclick="filtrar()">filtrar</button>
-          </div>
-        <section class="container">
+       
+        <section class="container ">
           <div class="row">
             <h5>Filtra los restaurantes cerca de ti</h5>
-            
+            <div class="col s6 col m16 col l6 center-aling">
+                <select id="select">
+                  <option value="">Elige una opcion</option>
+                  <option value="peruvian">Peruana</option>
+                  <option value="chilean">Chilena</option>
+                  <option value="Otros"> Otros</option>
+                </select>
+               
+              </div>
+              <div class=" col s6 col m16 col l6 center">
+              <button class="btn btn-slategrey" onclick="filtrar()">filtrar</button>
+              </div>
             <div class="col s12 col m12 col l12" id="places">
         
             </div>

@@ -9,3 +9,14 @@
 select{
     display: block;
 }
+.btn-orange {
+    background-color: orange;
+
+}
+nav{
+    background-color: violet;
+    font-family: 'Roboto Mono', monospace;
+}
+.btn-slategrey{
+    background-color: slategrey;
+}
